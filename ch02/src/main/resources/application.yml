@@ -1,0 +1,13 @@
+server:
+  port: 9090
+  servlet:
+    encoding:
+      charset: UTF-8
+spring:
+  output:
+    ansi:
+      enabled: always
+
+logging:
+  level:
+    '[com.example.ch02]': DEBUG
