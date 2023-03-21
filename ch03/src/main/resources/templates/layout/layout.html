@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en"
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/css/layout.css">
+  <script src="/js/jquery.3.6.4.min.js"></script>
+</head>
+<body>
+  <header th:replace="/fragments/header :: header">여기에 fragments에 있는 header 들고옴</header>
+  
+  <!-- 여기만 바뀜 -->
+  <main id="main">
+    <div class="container" layout:fragment="contents">
+      <h2>컨텐츠 제목</h2>
+    </div>
+  </main>
+  <footer th:replace="/fragments/footer :: footer">여기는 푸터</footer>
+  
+</body>
+</html>
