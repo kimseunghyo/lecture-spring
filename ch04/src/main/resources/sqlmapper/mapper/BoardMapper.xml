@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.ch04.dao.BoardDao">
+  <select id="getAllBoard" resultType="BoardDto">
+    SELECT * FROM BOARD03
+  </select>
+  <select id="getView" parameterType="Integer" resultType="BoardDto">
+    SELECT * FROM BOARD03 WHERE NO = #{no}
+  </select>
+  <insert id="insertBoard" parameterType="BoardDto">
+    INSERT INTO BOARD03 VALUES (BOARD03_SEQ.NEXTVAL, #{userName}, #{title}, #{contents}, SYSDATE, 0)
+  </insert>
+  <update id="updateHit" parameterType="Integer">
+    UPDATE BOARD03 SET HIT = HIT + 1 WHERE NO = #{no}
+  </update>
+  <update id="modifyBoard" parameterType="BoardDto">
+    UPDATE BOARD03 SET USERNAME = #{userName}, TITLE = #{title}, CONTENTS = #{contents} WHERE NO = #{no}
+  </update>
+  <delete id="deleteBoard" parameterType="Integer">
+    DELETE BOARD03 WHERE NO = #{no}
+  </delete>
+</mapper>

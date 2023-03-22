@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>modify</h1>
+    <form action="/board/modifyProcess" method="POST">
+        <table>
+            <colgroup>
+                <col style="width: 20%">
+                <col style="width: 80%">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <th>이름</th>
+                    <td><input type="text" name="userName" th:value="${boardDto.userName}" value="이름"></td>
+                </tr>
+                <tr>
+                    <th>제목</th>
+                    <td><input type="text" name="title" th:value="${boardDto.title}" value="제목"></td>
+                </tr>
+                <tr>
+                    <th>내용</th>
+                    <td><textarea name="contents" th:text="${boardDto.contents}" id="" cols="30" rows="10"></textarea></td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <input type="hidden" name="no" value="no" th:value="${boardDto.no}">
+            <button>확인</button>
+        </div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>view</h1>
+    <form action="">
+        <table>
+            <colgroup>
+                <col style="width: 20%">
+                <col style="width: 80%">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <th>이름</th>
+                    <td th:text="${boardDto.userName}">이름</td>
+                </tr>
+                <tr>
+                    <th>날짜</th>
+                    <td th:text="${boardDto.regDate}">날짜</td>
+                </tr>
+                <tr>
+                    <th>조회수</th>
+                    <td th:text="${boardDto.hit}">조회수</td>
+                </tr>
+                <tr>
+                    <th>제목</th>
+                    <td th:text="${boardDto.title}">제목</td>
+                </tr>
+                <tr>
+                    <th>내용</th>
+                    <td th:text="${boardDto.contents}" style="white-space: pre;"></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <div>
+        <input type="hidden" name="no" value="no" th:value="${boardDto.no}">
+        <button th:onclick="|location.href='@{/board/list}'|">목록</button>
+        <button th:onClick="|location.href='@{/board/modify(no=${boardDto.no})}'|">수정</button>
+        <button th:onClick="|location.href='@{/board/deleteProcess(no=${boardDto.no})}'|">삭제</button>
+    </div>
+</body>
+</html>

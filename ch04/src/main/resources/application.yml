@@ -1,0 +1,26 @@
+# 서버 포트
+server:
+  port: 9090
+
+# 스프링 로그 예쁘게 나오게 설정
+spring:
+  output:
+    ansi:
+      enabled: always
+  # 데이터 베이스 연동
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@Localhost:1521:xe
+    username: TIS001
+    password: 1234
+
+# 로그 찍기
+logging:
+  level:
+    #root: DEBUG
+    '[com.example.ch04]': DEBUG
+
+# mybaits 설정
+mybatis:
+  mapper-locations: classpath:sqlmapper/mapper/**/*.xml
+  config-location: classpath:sqlmapper/config/config.xml
