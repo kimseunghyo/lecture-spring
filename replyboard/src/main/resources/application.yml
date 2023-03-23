@@ -1,0 +1,20 @@
+server:
+  port: 9090
+
+spring:
+  output:
+    ansi:
+      enabled: always
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@Localhost:1521:xe
+    username: TIS001
+    password: 1234
+
+logging:
+  level:
+    '[com.example.ch04]': DEBUG
+
+mybatis:
+  mapper-locations: classpath:mapper/sqlmapper/**/*.xml
+  config-location: classpath:mapper/config/config.xml
