@@ -3,6 +3,9 @@ package com.example.replyboard.controller;
 import com.example.replyboard.dto.ReplyBoardDto;
 import com.example.replyboard.service.ReplyBoardService;
 import java.util.List;
+import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
+import oracle.jdbc.proxy.annotation.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/board")
+@Slf4j
 public class BoardController {
 
   @Autowired
@@ -31,10 +35,6 @@ public class BoardController {
 
   @PostMapping("/writeProcess")
   public String writeProcess(ReplyBoardDto replyBoardDto) {
-    int maxReGroup = replyBoardService.getMaxReGroup();
-    replyBoardDto.setReGroup(maxReGroup + 1);
-    replyBoardDto.setReLevel(1);
-    replyBoardDto.setReStep(1);
     replyBoardService.insertBoard(replyBoardDto);
     return "redirect:/board/list";
   }
@@ -56,6 +56,18 @@ public class BoardController {
   @PostMapping("/replyProcess")
   public String replyWriteProcess(ReplyBoardDto replyBoardDto) {
     replyBoardService.insertReplyBoard(replyBoardDto);
+    return "redirect:/board/list";
+  }
+
+  @GetMapping("/delete")
+  public String delete() {
+    return "/board/delete";
+  }
+
+  @PostMapping("/deleteProcess")
+  public String deleteProcess(ReplyBoardDto replyBoardDto) {
+    replyBoardService.updateAvailable(replyBoardDto);
+    log.info("ReplyBoardDto=======" + replyBoardDto);
     return "redirect:/board/list";
   }
 }

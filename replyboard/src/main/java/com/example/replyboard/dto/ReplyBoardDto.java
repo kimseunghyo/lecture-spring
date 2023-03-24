@@ -1,6 +1,7 @@
 package com.example.replyboard.dto;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Data
 public class ReplyBoardDto {

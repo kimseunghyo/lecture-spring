@@ -16,18 +16,27 @@
     <select id="getMaxReGroup" resultType="Integer">
         SELECT NVL(MAX(REGROUP), 0) AS MAXREGROUP FROM REPLYBOARD
     </select>
-
+    <!-- 새글 쓸 때 -->
     <insert id="insertBoard" parameterType="ReplyBoardDto">
         INSERT INTO REPLYBOARD VALUES (REPLYBOARD_SEQ.NEXTVAL, #{subject}, #{name}, #{password},
                                        SYSDATE, #{contents}, 1, #{reGroup}, #{reLevel}, #{reStep}, 0)
     </insert>
-
+    <!-- 답글 쓸 때 -->
     <insert id="insertReplyBoard" parameterType="ReplyBoardDto">
         INSERT INTO REPLYBOARD VALUES (REPLYBOARD_SEQ.NEXTVAL, #{subject}, #{name}, #{password},
                                        SYSDATE, #{contents}, 1, #{reGroup}, #{reLevel} + 1, #{reStep} + 1, 0)
     </insert>
 
+    <update id="updateReLevel" parameterType="ReplyBoardDto">
+        UPDATE REPLYBOARD SET RELEVEL = RELEVEL + 1 
+            WHERE REGROUP = #{reGroup} AND RELEVEL <![CDATA[>]]> #{reLevel}
+    </update> 
+
     <update id="updateHit" parameterType="Integer">
         UPDATE REPLYBOARD SET HIT = HIT + 1 WHERE NO = #{no}
+    </update>
+
+    <update id="updateAvailable" parameterType="ReplyBoardDto">
+        UPDATE REPLYBOARD SET AVAILABLE = 0 WHERE NO = #{no} and PASSWORD = #{password}
     </update>
 </mapper>
