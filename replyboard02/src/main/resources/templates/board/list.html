@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"
+    xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:th="http://www.thymeleaf.org"
+    layout:decorate="~{/layout/layout.html}">
+<head>
+    <title>BOARD LIST</title>
+</head>
+<body>
+    <div class="container" id="contents" layout:fragment="contents">
+        <h2>LIST</h2>
+        <table class="table table-striped">
+            <colgroup>
+                <col style="width: 100px">
+                <col>
+                <col style="width: 200px">
+                <col style="width: 200px">
+                <col style="width: 50px">
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col">NO</th>
+                <th scope="col">SUBJECT</th>
+                <th scope="col">WRITER</th>
+                <th scope="col">DATE</th>
+                <th scope="col">HIT</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="item : ${boardList}">
+                <th th:text="${item.no}">1</th>
+                <td class="text-start" th:class="'ps-sm-'+(${item.reStep})">
+                    <span th:if="${item.available} == '0'">삭제된 글입니다.</span>
+                    <a th:unless="${item.available} == '0'" href="/board/view" th:href="@{/board/view(no=${item.no})}" th:text="${item.subject}">나는</a></td>
+                <td th:text="${item.writer}">홍길동</td>
+                <td th:text="${item.regDate}">2023.03.25</td>
+                <td th:text="${item.hit}">1</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="bnts text-center">
+            <a href="/board/write" class="btn btn-lg btn-primary">WRITE</a>
+          </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.replyboard02.dao.ReplyBoardDao">
+  <insert id="insertBoard" parameterType="ReplyBoardDto">
+    INSERT INTO REPLYBOARD02 VALUES (
+        REPLYBOARD02_SEQ.NEXTVAL, #{subject}, #{writer}, #{password}, SYSDATE, #{contents},
+        1, #{reGroup}, #{reLevel}, #{reStep}, 0
+    )
+  </insert>
+
+  <insert id="insertReplyBoard" parameterType="ReplyBoardDto">
+    INSERT INTO REPLYBOARD02 VALUES (
+        REPLYBOARD02_SEQ.NEXTVAL, #{subject}, #{writer}, #{password}, SYSDATE, #{contents},
+        1, #{reGroup}, #{reLevel}, #{reStep}, 0
+    )
+  </insert>
+
+  <select id="getAllBoardList" resultType="ReplyBoardDto">
+    SELECT ROWNUM AS NUM, B. * FROM 
+    (SELECT * FROM REPLYBOARD02 ORDER BY REGROUP DESC, RELEVEL ASC) B
+  </select>
+
+  <select id="getSelectOne" parameterType="Integer" resultType="ReplyBoardDto">
+    SELECT * FROM REPLYBOARD02 WHERE NO = #{no}
+  </select>
+
+  <select id="getMaxReGroup" resultType="Integer">
+    SELECT NVL(MAX(REGROUP), 1) AS REGROUPMAX FROM REPLYBOARD02
+  </select>
+
+  <update id="updateHit" parameterType="Integer">
+    UPDATE REPLYBOARD02 SET HIT = HIT + 1 WHERE NO = #{no}
+  </update>
+
+  <update id="updateReLevel" parameterType="ReplyBoardDto">
+    UPDATE REPLYBOARD02 SET RELEVEL = RELEVEL + 1
+        WHERE REGROUP = #{reGroup} AND RELEVEL <![CDATA[>]]> #{reLevel}
+  </update>
+
+  <update id="updateBoard" parameterType="ReplyBoardDto">
+    UPDATE REPLYBOARD02 SET SUBJECT = #{subject}, WRITER = #{writer}, CONTENTS = #{contents}
+        WHERE NO = #{no} AND PASSWORD = #{password}
+  </update>
+
+  <update id="updateAvailable" parameterType="ReplyBoardDto">
+    UPDATE REPLYBOARD02 SET AVAILABLE = #{available} WHERE NO = #{no} AND PASSWORD = #{password}
+  </update>
+</mapper>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en"
+    xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:th="http://www.thymeleaf.org"
+    layout:decorate="~{/layout/layout.html}">
+<head>
+    <title>BOARD LIST</title>
+</head>
+<body>
+    <div class="container" id="contents" layout:fragment="contents">
+        <h2>DELETE</h2>
+        <form action="/board/deleteProcess" method="POST" class="mt-5">
+            <div class="">
+                <label class="form-label me-5">비밀번호</label>
+                <input type="hidden" name="no" th:value="${param.no}">
+                <input type="password" class="form-control" placeholder="비밀번호" name="password">
+            </div>
+            <div class="mt-5 text-center">
+              <input type="hidden" name="no" id="" th:value="${param.no}">
+              <button type="submit" class="btn btn-danger btn-lg">CONFIRM</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
