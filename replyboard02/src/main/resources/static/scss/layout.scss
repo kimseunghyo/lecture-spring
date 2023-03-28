@@ -1,8 +1,42 @@
 #main {
     padding: 100px 0;
 }
+
+body {
+    color: #111;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 table{
     .contents {
         min-height: 300px !important;
     }
-} 
+}
+
+.space {
+    &:before {
+        font-family: "Material Icons";
+        content: "\e5da";
+        display: inline;
+    }
+}
+
+.space1 {
+    padding-left: 0px;
+}
+
+.space2 {
+    padding-left: 20px;
+}
+
+.space3 {
+    padding-left: 40px;
+}
+
+.space4 {
+    padding-left: 60px;
+}

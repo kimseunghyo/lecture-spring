@@ -1,6 +1,7 @@
 package com.example.replyboard02.dao;
 
 import com.example.replyboard02.dto.ReplyBoardDto;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -8,7 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface ReplyBoardDao {
   int insertBoard(ReplyBoardDto replyBoardDto);
 
-  List<ReplyBoardDto> getAllBoardList();
+  List<ReplyBoardDto> getAllBoardList(HashMap<String, Object> hashMap);
 
   ReplyBoardDto getSelectOne(int no);
 

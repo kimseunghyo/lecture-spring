@@ -17,9 +17,13 @@
     )
   </insert>
 
-  <select id="getAllBoardList" resultType="ReplyBoardDto">
-    SELECT ROWNUM AS NUM, B. * FROM 
-    (SELECT * FROM REPLYBOARD02 ORDER BY REGROUP DESC, RELEVEL ASC) B
+  <select id="getAllBoardList" resultType="ReplyBoardDto" parameterType="HashMap">
+    SELECT ROWNUM AS NUM, B. * FROM
+    (SELECT * FROM REPLYBOARD02
+    <if test="category != null and searchTxt != ''">
+      WHERE ${category} LIKE '%' || #{searchTxt} || '%'
+    </if>
+      ORDER BY REGROUP DESC, RELEVEL ASC) B
   </select>
 
   <select id="getSelectOne" parameterType="Integer" resultType="ReplyBoardDto">

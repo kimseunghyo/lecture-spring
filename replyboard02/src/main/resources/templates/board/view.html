@@ -43,6 +43,8 @@
                 class="btn btn-lg btn-primary">REPLY</a>
             <a href="/board/delete" th:href="@{/board/delete(no=${replyBoardDto.no})}"
                 class="btn btn-lg btn-danger">DELETE</a>
+                <a href="/board/delete_ajax" th:href="@{/board/delete_ajax(no=${replyBoardDto.no})}"
+                class="btn btn-lg btn-danger" id="btnDeleteAjax">DELETE AJAX</a>
           </div>
     </div>
 </body>

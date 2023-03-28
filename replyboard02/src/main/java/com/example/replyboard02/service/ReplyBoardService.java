@@ -6,7 +6,7 @@ import java.util.List;
 public interface ReplyBoardService {
   public int insertBoard(ReplyBoardDto replyBoardDto);
 
-  public List<ReplyBoardDto> getAllBoardList();
+  public List<ReplyBoardDto> getAllBoardList(String category, String searchTxt);
 
   public ReplyBoardDto getSelectOne(int no);
 
