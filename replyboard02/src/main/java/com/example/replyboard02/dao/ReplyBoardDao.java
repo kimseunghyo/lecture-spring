@@ -24,4 +24,8 @@ public interface ReplyBoardDao {
   int updateBoard(ReplyBoardDto replyBoardDto);
 
   int updateAvailable(ReplyBoardDto replyBoardDto);
+
+  ReplyBoardDto getPrevSelect(int num);
+
+  ReplyBoardDto getNextSelect(int num);
 }

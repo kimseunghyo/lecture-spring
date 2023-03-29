@@ -29,22 +29,44 @@
               </tr>
               <tr>
                 <th>CONTENTS</th>
-                <td th:text="${replyBoardDto.contents}" style="white-space: pre;">contents</td>
+                <td class="contents" th:text="${replyBoardDto.contents}">contents</td>
               </tr>
             </tbody>
           </table>
           <div class="bnts text-center">
-            <a href="/board/list" class="btn btn-lg btn-primary">LIST</a>
             <a href="/board/modify" th:href="@{/board/modify(no=${replyBoardDto.no})}"
                 class="btn btn-lg btn-primary">MODIFY</a>
             <a href="/board/reply"
                 th:href="@{/board/reply(no=${replyBoardDto.no},
                     reGroup = ${replyBoardDto.reGroup}, reLevel=${replyBoardDto.reLevel}, reStep=${replyBoardDto.reStep})}"
                 class="btn btn-lg btn-primary">REPLY</a>
+            <a href="/board/list" class="btn btn-lg btn-secondary">LIST</a>
             <a href="/board/delete" th:href="@{/board/delete(no=${replyBoardDto.no})}"
                 class="btn btn-lg btn-danger">DELETE</a>
                 <a href="/board/delete_ajax" th:href="@{/board/delete_ajax(no=${replyBoardDto.no})}"
                 class="btn btn-lg btn-danger" id="btnDeleteAjax">DELETE AJAX</a>
+          </div>
+          <div class="mt-5 prevAndNext">
+            <div>
+              <span>next</span>
+              <a href="/board/view" th:href="@{/board/view(no=${nextBoardDto.no}, num=${nextBoardDto.num})}">
+                <span th:text="${nextBoardDto.no}">no</span>
+                <span th:text="${nextBoardDto.subject}">subject</span>
+                <span th:text="${nextBoardDto.writer}">writer</span>
+                <span th:text="${nextBoardDto.regDate}">date</span>
+                <span th:Text="${nextBoardDto.hit}">hit</span>
+              </a>
+            </div>
+            <div>
+              <span>prev</span>
+              <a href="/board/view" th:href="@{/board/view(no=${prevBoardDto.no}, num=${prevBoardDto.num})}">
+                <span th:text="${prevBoardDto.no}">no</span>
+                <span th:text="${prevBoardDto.subject}">subject</span>
+                <span th:text="${prevBoardDto.writer}">writer</span>
+                <span th:text="${prevBoardDto.regDate}">date</span>
+                <span th:Text="${prevBoardDto.hit}">hit</span>
+              </a>
+            </div>
           </div>
     </div>
 </body>

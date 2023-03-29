@@ -21,4 +21,8 @@ public interface ReplyBoardService {
   public int updateBoard(ReplyBoardDto replyBoardDto);
 
   public int updateAvailable(ReplyBoardDto replyBoardDto);
+
+  public ReplyBoardDto getPrevSelect(int num);
+
+  public ReplyBoardDto getNextSelect(int num);
 }

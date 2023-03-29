@@ -74,4 +74,12 @@ public class ReplyBoardServiceImpl implements ReplyBoardService {
   public int updateAvailable(ReplyBoardDto replyBoardDto) {
     return replyBoardDao.updateAvailable(replyBoardDto);
   }
+
+  public ReplyBoardDto getPrevSelect(int num) {
+    return replyBoardDao.getPrevSelect(num);
+  }
+
+  public ReplyBoardDto getNextSelect(int num) {
+    return replyBoardDao.getNextSelect(num);
+  }
 }

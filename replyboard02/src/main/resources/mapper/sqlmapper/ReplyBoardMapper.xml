@@ -3,6 +3,31 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.replyboard02.dao.ReplyBoardDao">
+  <sql id="search">
+    <if test="category != null and searchTxt != ''">
+      <choose>
+        <when test="category=='all'">
+          WHERE
+          (subject LIKE '%' || #{searchTxt} || '%') OR
+          (writer LIKE '%' || #{searchTxt} || '%') OR
+          (contents LIKE '%' || #{searchTxt} || '%')
+        </when>
+        <when test="category=='subject'">
+          WHERE
+          (subject LIKE '%' || #{searchTxt} || '%')
+        </when>
+        <when test="category=='writer'">
+        WHERE
+          (writer LIKE '%' || #{searchTxt} || '%')
+        </when>
+        <when test="category=='contents'">
+        WHERE
+          (contents LIKE '%' || #{searchTxt} || '%')
+        </when>
+      </choose>
+    </if>
+  </sql>
+
   <insert id="insertBoard" parameterType="ReplyBoardDto">
     INSERT INTO REPLYBOARD02 VALUES (
         REPLYBOARD02_SEQ.NEXTVAL, #{subject}, #{writer}, #{password}, SYSDATE, #{contents},
@@ -19,11 +44,10 @@
 
   <select id="getAllBoardList" resultType="ReplyBoardDto" parameterType="HashMap">
     SELECT ROWNUM AS NUM, B. * FROM
-    (SELECT * FROM REPLYBOARD02
-    <if test="category != null and searchTxt != ''">
-      WHERE ${category} LIKE '%' || #{searchTxt} || '%'
-    </if>
-      ORDER BY REGROUP DESC, RELEVEL ASC) B
+      (SELECT * FROM REPLYBOARD02
+    
+    <include refid="search" />
+     ORDER BY REGROUP DESC, RELEVEL ASC) B
   </select>
 
   <select id="getSelectOne" parameterType="Integer" resultType="ReplyBoardDto">
@@ -32,6 +56,20 @@
 
   <select id="getMaxReGroup" resultType="Integer">
     SELECT NVL(MAX(REGROUP), 1) AS REGROUPMAX FROM REPLYBOARD02
+  </select>
+
+  <select id="getPrevSelect" parameterType="Integer" resultType="ReplyBoardDto">
+    SELECT * FROM
+     (SELECT ROWNUM AS NUM, B. * FROM
+      (SELECT * FROM REPLYBOARD02 ORDER BY REGROUP DESC, RELEVEL ASC) B)
+    WHERE NUM = #{num} - 1
+  </select>
+
+  <select id="getNextSelect" parameterType="Integer" resultType="ReplyBoardDto">
+    SELECT * FROM
+     (SELECT ROWNUM AS NUM, B. * FROM
+      (SELECT * FROM REPLYBOARD02 ORDER BY REGROUP DESC, RELEVEL ASC) B)
+    WHERE NUM = #{num} + 1
   </select>
 
   <update id="updateHit" parameterType="Integer">
@@ -44,7 +82,7 @@
   </update>
 
   <update id="updateBoard" parameterType="ReplyBoardDto">
-    UPDATE REPLYBOARD02 SET SUBJECT = #{subject}, WRITER = #{writer}, CONTENTS = #{contents}
+    UPDATE REPLYBOARD02 SET SUBJECT = #{subject}, CONTENTS = #{contents}
         WHERE NO = #{no} AND PASSWORD = #{password}
   </update>
 

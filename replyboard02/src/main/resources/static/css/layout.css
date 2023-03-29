@@ -13,6 +13,7 @@ a {
 
 table .contents {
   min-height: 300px !important;
+  white-space: pre;
 }
 
 .space:before {
