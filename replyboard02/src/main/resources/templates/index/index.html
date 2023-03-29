@@ -7,6 +7,8 @@
     <title>BOARD WRITE</title>
 </head>
 <body>
-    <div layout:fragment="contents"></div>
+    <div layout:fragment="contents">
+        <h2 th:if="${session.sessionName != null}" th:text="${session.sessionName} + '님 안녕하세요'">userName</h2>
+    </div>
 </body>
 </html>

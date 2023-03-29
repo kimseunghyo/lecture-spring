@@ -26,8 +26,13 @@ public class MemberController {
   }
 
   @PostMapping("/joinProcess")
-  public String joinProcess(MemberDto memberDto) {
-    memberService.insertMember(memberDto);
+  public String joinProcess(MemberDto memberDto, HttpServletRequest request) {
+    int result = memberService.insertMember(memberDto);
+
+    if (result > 0) {
+      HttpSession session = request.getSession();
+      session.setAttribute("sessionName", memberDto.getUserName());
+    }
     return "/index/index";
   }
 
@@ -37,8 +42,17 @@ public class MemberController {
   }
 
   @PostMapping("/loginProcess")
-  public String loginProcess(MemberDto memberDto) {
-    memberService.getLoggedMember(memberDto);
+  public String loginProcess(MemberDto memberDto, HttpServletRequest request) {
+    MemberDto loggedMemberDto = memberService.getLoggedMember(memberDto);
+    HttpSession session = request.getSession();
+    session.setAttribute("sessionName", loggedMemberDto.getUserName());
+    return "/index/index";
+  }
+
+  @GetMapping("/logout")
+  public String logout(HttpServletRequest request) {
+    HttpSession session = request.getSession();
+    session.invalidate();
     return "/index/index";
   }
 }

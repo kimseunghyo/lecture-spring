@@ -29,12 +29,9 @@
           <li><a href="#" class="nav-link px-2 text-white">FAQ</a></li>
         </ul>
     
-        <!-- <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-          <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
-        </form> -->
-    
         <div class="text-end">
-          <a href="/member/login" class="btn btn-outline-light me-2">Login</a>
+          <a th:if="${session.sessionName == null}" href="/member/login" class="btn btn-outline-light me-2">Login</a>
+          <a th:unless="${session.sessionName == null}" href="/member/logout" class="btn btn-outline-light me-2">Logout</a>
           <a href="/member/join" class="btn btn-warning">Sign-up</a>
         </div>
       </div>
