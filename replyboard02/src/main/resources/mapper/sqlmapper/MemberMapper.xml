@@ -11,4 +11,9 @@
     <select id="getLoggedMember" parameterType="MemberDto" resultType="MemberDto">
         SELECT * FROM MEMBER04 WHERE USERID = #{userId} AND USERPW = #{userPw}
     </select>
+
+    <update id="updateMember" parameterType="MemberDto">
+        UPDATE MEMBER04 SET USERNAME = #{userName}, USEREMAIL = #{userEmail}
+         WHERE USERID = #{userId} AND #{UserPw}
+    </update>
 </mapper>

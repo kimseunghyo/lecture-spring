@@ -8,66 +8,78 @@
 </head>
 <body>
     <div class="container" id="contents" layout:fragment="contents">
-        <h2>VIEW</h2>
-        <table class="table mt-5">
-            <tbody>
-              <tr>
-                <th>SUBJECT</th>
-                <td th:text="${replyBoardDto.subject}">subject</td>
-              </tr>
-              <tr>
-                <th>WRITER</th>
-                <td th:text="${replyBoardDto.writer}">writer</td>
-              </tr>
-              <tr>
-                <th>HIT</th>
-                <td th:text="${replyBoardDto.hit}">hit</td>
-              </tr>
-              <tr>
-                <th>DATE</th>
-                <td th:text="${replyBoardDto.regDate}">date</td>
-              </tr>
-              <tr>
-                <th>CONTENTS</th>
-                <td class="contents" th:text="${replyBoardDto.contents}">contents</td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="bnts text-center">
-            <a href="/board/modify" th:href="@{/board/modify(no=${replyBoardDto.no})}"
-                class="btn btn-lg btn-primary">MODIFY</a>
-            <a href="/board/reply"
-                th:href="@{/board/reply(no=${replyBoardDto.no},
-                    reGroup = ${replyBoardDto.reGroup}, reLevel=${replyBoardDto.reLevel}, reStep=${replyBoardDto.reStep})}"
-                class="btn btn-lg btn-primary">REPLY</a>
-            <a href="/board/list" class="btn btn-lg btn-secondary">LIST</a>
-            <a href="/board/delete" th:href="@{/board/delete(no=${replyBoardDto.no})}"
-                class="btn btn-lg btn-danger">DELETE</a>
-                <a href="/board/delete_ajax" th:href="@{/board/delete_ajax(no=${replyBoardDto.no})}"
-                class="btn btn-lg btn-danger" id="btnDeleteAjax">DELETE AJAX</a>
+      <h2>VIEW</h2>
+      <table class="table mt-5">
+        <tbody>
+          <tr>
+            <th>SUBJECT</th>
+            <td th:text="${replyBoardDto.subject}">subject</td>
+          </tr>
+          <tr>
+            <th>WRITER</th>
+            <td th:text="${replyBoardDto.writer}">writer</td>
+          </tr>
+          <tr>
+            <th>HIT</th>
+            <td th:text="${replyBoardDto.hit}">hit</td>
+          </tr>
+          <tr>
+            <th>DATE</th>
+            <td th:text="${replyBoardDto.regDate}">date</td>
+          </tr>
+          <tr>
+            <th>CONTENTS</th>
+            <td class="contents" th:text="${replyBoardDto.contents}">contents</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="bnts text-center">
+        <a href="/board/modify" th:href="@{/board/modify(no=${replyBoardDto.no})}"
+          class="btn btn-lg btn-primary">MODIFY</a>
+        <a href="/board/reply"
+          h:href="@{/board/reply(no=${replyBoardDto.no},
+          reGroup = ${replyBoardDto.reGroup}, reLevel=${replyBoardDto.reLevel}, reStep=${replyBoardDto.reStep})}"
+          class="btn btn-lg btn-primary">REPLY</a>
+        <a href="/board/list" class="btn btn-lg btn-secondary">LIST</a>
+        <a href="/board/delete" th:href="@{/board/delete(no=${replyBoardDto.no})}"
+          class="btn btn-lg btn-danger">DELETE</a>
+        <a href="/board/delete_ajax" th:href="@{/board/delete_ajax(no=${replyBoardDto.no})}"
+          class="btn btn-lg btn-danger" id="btnDeleteAjax">DELETE AJAX</a>
+      </div>
+      <div class="mt-5 prevAndNext">
+        <div class="border-bottom">
+          <div th:if="${nextBoardDto == null}">
+            <span>next</span>
+            <span>다음 글이 없습니다.</span>
           </div>
-          <div class="mt-5 prevAndNext">
-            <div class="border-bottom">
-              <span>next</span>
-              <a href="/board/view" th:href="@{/board/view(no=${nextBoardDto.no}, num=${nextBoardDto.num})}">
-                <span th:text="${nextBoardDto.no}">no</span>
-                <span th:text="${nextBoardDto.subject}">subject</span>
-                <span th:text="${nextBoardDto.writer}">writer</span>
-                <span th:text="${nextBoardDto.regDate}">date</span>
-                <span th:Text="${nextBoardDto.hit}">hit</span>
-              </a>
-            </div>
-            <div>
-              <span>prev</span>
-              <a href="/board/view" th:href="@{/board/view(no=${prevBoardDto.no}, num=${prevBoardDto.num})}">
-                <span th:text="${prevBoardDto.no}">no</span>
-                <span th:text="${prevBoardDto.subject}">subject</span>
-                <span th:text="${prevBoardDto.writer}">writer</span>
-                <span th:text="${prevBoardDto.regDate}">date</span>
-                <span th:Text="${prevBoardDto.hit}">hit</span>
-              </a>
-            </div>
+          <div th:unless="${nextBoardDto == null}">
+            <span>next</span>
+            <a href="/board/view"
+              th:href="@{/board/view(no=${nextBoardDto.no}, num=${nextBoardDto.num})}">
+              <span th:text="${nextBoardDto.subject}">subject</span>
+              <span th:text="${nextBoardDto.writer}">writer</span>
+              <span th:text="${nextBoardDto.regDate}">date</span>
+              <span th:Text="${nextBoardDto.hit}">hit</span>
+            </a>
           </div>
-    </div>
+        </div>
+        <div>
+          <div th:if="${prevBoardDto == null}">
+            <span>prev</span>
+            <span>이전 글이 없습니다.</span>
+          </div>
+          <div th:unless="${prevBoardDto == null}">
+            <span>prev</span>
+            <a href="/board/view"
+              th:href="@{/board/view(no=${prevBoardDto.no}, num=${prevBoardDto.num})}">
+              <span th:text="${prevBoardDto.subject}">subject</span>
+              <span th:text="${prevBoardDto.writer}">writer</span>
+              <span th:text="${prevBoardDto.regDate}">date</span>
+              <span th:Text="${prevBoardDto.hit}">hit</span>
+            </a>
+          </div>
+        </div>
+      </div>
+  </div>
 </body>
 </html>

@@ -11,19 +11,23 @@
         <h2>JOIN</h2>
         <div class="signup-form d-inline-block">
             <form action="/member/joinProcess" method="POST">
-                <div class="form-group mt-2">
-                    <input type="text" class="form-control" name="userId" placeholder="Id" required="required">      	
+                <div class="form-floating mt-2">
+                    <input type="text" class="form-control userId" name="userId" placeholder="Id" required="required">      	
+                    <label for="floatingInput">Id</label> 
                 </div>
-                <div class="form-group mt-2">
+                <div class="form-floating mt-2">
                     <input type="password" class="form-control" name="userPw" placeholder="Password" required="required">
+                    <label for="floatingInput">Password</label> 
                 </div>
-                <div class="form-group mt-2">
+                <div class="form-floating mt-2">
                     <input type="text" class="form-control" name="userName" placeholder="Name" required="required">
+                    <label for="floatingInput">Name</label> 
                 </div>    
-                <div class="form-group mt-2">
+                <div class="form-floating mt-2">
                     <input type="email" class="form-control" name="userEmail" placeholder="Email" required="required">
+                    <label for="floatingInput">Email</label> 
                 </div>  
-                <div class="form-group mt-3 mb-3">
+                <div class="form-floating mt-3 mb-3">
                     <button type="submit" class="btn btn-primary btn-lg btn-block w-100">Register Now</button>
                 </div>
             </form>

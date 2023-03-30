@@ -49,7 +49,16 @@
             <div class="d-inline-block float-end">
               <form class="input-group mt-4" action="/board/list" method="GET">
                 <div class="col">
-                  <select class="form-select" aria-label="Default select example" name="category">
+                  <select class="form-select" aria-label="Default select example" name="category" 
+                    th:if="${param.category != null}">
+                    <option value="all" 
+                      th:selected="${param.category.toString().equals('all') ? true : false}">전체검색</option>
+                    <option value="subject" th:selected="${param.category.toString().equals('subject') ? true : false}">제목</option>
+                    <option value="contents" th:selected="${param.category.toString().equals('contents') ? true : false}">내용</option>
+                    <option value="writer" th:selected="${param.category.toString().equals('writer') ? true : false}">글쓴이</option>
+                  </select>
+                  <select class="form-select" aria-label="Default select example" name="category" 
+                  th:unless="${param.category != null}">
                     <option value="all" selected>전체검색</option>
                     <option value="subject">제목</option>
                     <option value="contents">내용</option>

@@ -62,14 +62,14 @@
     SELECT * FROM
      (SELECT ROWNUM AS NUM, B. * FROM
       (SELECT * FROM REPLYBOARD02 ORDER BY REGROUP DESC, RELEVEL ASC) B)
-    WHERE NUM = #{num} - 1
+    WHERE NUM = #{num} + 1
   </select>
 
   <select id="getNextSelect" parameterType="Integer" resultType="ReplyBoardDto">
     SELECT * FROM
      (SELECT ROWNUM AS NUM, B. * FROM
       (SELECT * FROM REPLYBOARD02 ORDER BY REGROUP DESC, RELEVEL ASC) B)
-    WHERE NUM = #{num} + 1
+    WHERE NUM = #{num} - 1
   </select>
 
   <update id="updateHit" parameterType="Integer">

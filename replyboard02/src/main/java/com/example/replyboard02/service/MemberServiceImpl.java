@@ -24,4 +24,8 @@ public class MemberServiceImpl implements MemberService {
   public MemberDto getLoggedMember(MemberDto memberDto) {
     return memberDao.getLoggedMember(memberDto);
   }
+
+  public int updateMember(MemberDto memberDto) {
+    return memberDao.updateMember(memberDto);
+  }
 }

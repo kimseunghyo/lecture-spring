@@ -33,8 +33,6 @@ public class BoardController {
       category,
       searchTxt
     );
-    //log.info("===============" + boardList);
-    log.info("==========" + category);
     model.addAttribute("boardList", boardList);
     return "/board/list";
   }
@@ -49,6 +47,7 @@ public class BoardController {
     model.addAttribute("replyBoardDto", replyBoardDto);
     model.addAttribute("prevBoardDto", prevBoardDto);
     model.addAttribute("nextBoardDto", nextBoardDto);
+
     return "/board/view";
   }
 

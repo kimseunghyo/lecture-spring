@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en"
+    xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:th="http://www.thymeleaf.org"
+    layout:decorate="~{/layout/layout.html}">
+<head>
+    <title>MEMEBER</title>
+</head>
+<body>
+    <div class="container" id="contents" layout:fragment="contents">
+      <h2>INFO</h2>
+      <form action="/member/modifyProcess" method="POST" class="mt-5">
+        <table class="table mt-5">
+            <tbody>
+            <tr>
+                <th>ID</th>
+                <td><input type="text" name="userId" class="form-control"
+                    th:value="${session.loggedMember.userId}" readonly></input></td>
+            </tr>
+            <tr>
+                <th>PASSWORD</th>
+                <th><input type="password" name="userPw" class="form-control"></th>
+            </tr>
+            <tr>
+                <th>NAME</th>
+                <td><input type="text" name="userName" class="form-control"
+                    th:value="${session.loggedMember.userName}"></td>
+            </tr>
+            <tr>
+                <th>EMAIL</th>
+                <td><input type="text" name="userEmail" class="form-control"
+                    th:value="${session.loggedMember.userEmail}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="bnts text-center">
+            <button type="submit" formmethod="POST" class="btn btn-lg btn-primary">CONFIRM</button>
+            <a href=""
+              class="btn btn-lg btn-danger">DELETE</a>
+        </div>
+      </form>
+    </div>
+</body>
+</html>

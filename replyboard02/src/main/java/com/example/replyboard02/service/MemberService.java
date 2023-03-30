@@ -6,4 +6,6 @@ public interface MemberService {
   public int insertMember(MemberDto memberDto);
 
   public MemberDto getLoggedMember(MemberDto memberDto);
+
+  public int updateMember(MemberDto memberDto);
 }

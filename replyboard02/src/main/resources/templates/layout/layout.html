@@ -30,9 +30,14 @@
         </ul>
     
         <div class="text-end">
-          <a th:if="${session.sessionName == null}" href="/member/login" class="btn btn-outline-light me-2">Login</a>
-          <a th:unless="${session.sessionName == null}" href="/member/logout" class="btn btn-outline-light me-2">Logout</a>
-          <a href="/member/join" class="btn btn-warning">Sign-up</a>
+          <a th:if="${session.loggedMember == null}" href="/member/login"
+           class="btn btn-outline-light me-2">Login</a>
+          <a th:unless="${session.loggedMember == null}" href="/member/info" id="btnInfo"
+           class="btn btn-outline-light me-2" th:text="${session.loggedMember.userName} + 님">username</a>
+          <a th:if="${session.loggedMember == null}" href="/member/join"
+           class="btn btn-warning">Sign-up</a>
+          <a th:unless="${session.loggedMember == null}" href="/member/logout"
+           class="btn btn-warning">Logout</a>
         </div>
       </div>
     </div>
@@ -127,6 +132,8 @@
         },
       })
     });
+
+   
     /*]]>*/
   </script>
 </body>
