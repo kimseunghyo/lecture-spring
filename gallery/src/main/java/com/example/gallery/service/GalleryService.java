@@ -15,5 +15,5 @@ public interface GalleryService {
 
   List<ReplyDto> getAllReply(int galleryId);
 
-  int deleteReply(ReplyDto replyDto);
+  int deleteReply(int no);
 }

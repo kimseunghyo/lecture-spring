@@ -20,7 +20,7 @@
         SELECT * FROM GALLERY_COMMENT WHERE GALLERYID = #{galleryId} ORDER BY NO ASC
     </select>
 
-    <delete id="deleteReply" parameterType="Replydto">
-        DELETE FROM GALLERY_COMMENT WHERE GALLERYID = #{galleryId} AND NO = #{no}
+    <delete id="deleteReply" parameterType="Integer">
+        DELETE FROM GALLERY_COMMENT WHERE NO = #{no}
     </delete>
 </mapper>

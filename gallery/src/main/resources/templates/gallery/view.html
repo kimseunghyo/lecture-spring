@@ -84,16 +84,16 @@
         function deleteReply() {
             let no = $(this).attr("data-no");
             const sendData = {
-                galleryId: galleryId,
                 no: no
             }
             
             $.ajax({
-                url: "/deleteReply",
+                url: "/deleteReply/" + no,
                 data: sendData,
                 type: "POST",
                 success: function(response) {
                     loadReply();
+                    console.log(no);
                 }
             })
         }

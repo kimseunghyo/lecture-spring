@@ -62,8 +62,8 @@ public class GalleryServiceImpl implements GalleryService {
     return replyList;
   }
 
-  public int deleteReply(ReplyDto replyDto) {
-    int result = galleryDao.deleteReply(replyDto);
+  public int deleteReply(int no) {
+    int result = galleryDao.deleteReply(no);
     return result;
   }
 }

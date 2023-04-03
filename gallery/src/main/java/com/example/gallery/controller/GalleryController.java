@@ -66,13 +66,11 @@ public class GalleryController {
     return replyList;
   }
 
-  @PostMapping("/deleteReply")
+  @PostMapping("/deleteReply/{no}")
   @ResponseBody
-  public List<ReplyDto> deleteReply(ReplyDto replyDto) {
-    int result = galleryService.deleteReply(replyDto);
-    List<ReplyDto> replyList = galleryService.getAllReply(
-      replyDto.getGalleryId()
-    );
+  public List<ReplyDto> deleteReply(@PathVariable("no") int no) {
+    int result = galleryService.deleteReply(no);
+    List<ReplyDto> replyList = galleryService.getAllReply(no);
     if (result > 0) {
       return replyList;
     } else {
