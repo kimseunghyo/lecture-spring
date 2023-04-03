@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <script src="/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <div class="form insert">
+        <h1>insert</h1>
+        <form action="/insert" method="POST" enctype="multipart/form-data">
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" placeholder="Title" name="title">
+                <label for="floatingInput">Title</label>
+              </div>
+              <div class="form-floating mb-3">
+                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" name="contents"></textarea>
+                <label for="floatingTextarea">Contents</label>
+              </div>
+              <div class="mb-3">
+                <label for="formFile" class="form-label">Default file input example</label>
+                <input class="form-control" type="file" id="formFile" name="file">
+              </div>
+              <div class="btn">
+                <button class="btn btn-primary">CONFIRM</button>
+                <button class="btn btn-secondary">RESET</button>
+                <a href="/" class="btn btn-success">LIST</a>
+              </div>
+        </form>
+    </div>
+</body>
+</html>

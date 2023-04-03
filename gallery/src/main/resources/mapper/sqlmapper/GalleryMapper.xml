@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.gallery.dao.GalleryDao">
+    <insert id="insertGallery" parameterType="GalleryDto">
+        INSERT INTO GALLERY VALUES (GALLERY_SEQ.NEXTVAL, #{title}, #{contents}, #{original}, #{renamed}, 0)
+    </insert>
+    <insert id="insertReply" parameterType="ReplyDto">
+        INSERT INTO GALLERY_COMMENT VALUES(GALLERY_COMMENT_SEQ.NEXTVAL, #{galleryId}, #{comments})
+    </insert>
+
+    <select id="getAllList" resultType="GalleryDto">
+        SELECT * FROM GALLERY
+    </select>
+    <select id="viewGallery" parameterType="Integer" resultType="GalleryDto">
+        SELECT * FROM GALLERY WHERE NO = #{no}
+    </select>
+    <select id="getAllReply" parameterType="Integer" resultType="ReplyDto">
+        SELECT * FROM GALLERY_COMMENT WHERE GALLERYID = #{galleryId} ORDER BY NO ASC
+    </select>
+
+    <delete id="deleteReply" parameterType="Replydto">
+        DELETE FROM GALLERY_COMMENT WHERE GALLERYID = #{galleryId} AND NO = #{no}
+    </delete>
+</mapper>

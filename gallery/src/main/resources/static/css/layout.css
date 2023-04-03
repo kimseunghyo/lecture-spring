@@ -1,0 +1,65 @@
+.form.insert {
+  width: 600px;
+  margin: 100px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: #fff;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+}
+
+li {
+  list-style: none;
+}
+
+.view.gallery {
+  border: 1px solid #ccc;
+  width: 640px;
+  margin: 100px auto;
+  padding: 20px;
+}
+.view.gallery ul {
+  padding: 8px 0px;
+  font-size: 18px;
+}
+.view.gallery ul li {
+  padding: 5px 0;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+}
+.view.gallery ul li:nth-last-child(1) {
+  border-bottom: none;
+}
+.view.gallery ul li button {
+  display: flex;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+}
+.view.gallery .card {
+  padding: 20px;
+}
+.view.gallery .title {
+  font-size: 45px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ccc;
+}
+.view.gallery .contents {
+  font-size: 25px;
+  margin: 25px 0;
+}
+.view.gallery .comment-num {
+  background-color: #d4d4d4;
+  padding: 5px 10px;
+}
+
+.list.gallery {
+  width: 640px;
+  margin: 100px auto;
+}
+.list.gallery li .card {
+  padding: 20px;
+}
+.list.gallery li a {
+  text-decoration: none;
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+    <div class="view gallery">
+        <div class="card-body">
+            <h5 class="card-title title" th:text="${galleryDto.title}">Card title</h5>
+            <img th:src="@{|/upload/${galleryDto.renamed}|}" class="card-img-top" alt="...">
+            <p class="card-text contents" th:text="${galleryDto.contents}">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <div class="comment-num">댓글</div>
+            <div class="replyBox">
+                <ul>
+                    <li>comment</li>
+                </ul>
+            </div>
+            <div class="mb-4 row">
+                <textarea class="form-control reply col" id="exampleFormControlTextarea1" rows="2"
+                placeholder="Please Write Reply"></textarea>
+                <button class="btn btn-primary col-2" id="btnConfirm">CONFIRM</button>
+            </div>
+        </div>
+        <div class="btns text-center">
+            <a href="/" class="btn btn-success btn-lg">LIST</a>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        const galleryId = [[${galleryDto.no}]];
+        loadReply();
+
+        function loadReply() {
+            const sendData = {
+                galleryId: galleryId,
+            }
+
+            $.ajax({
+                url: "/getReply/" + galleryId,
+                data: sendData,
+                type: "POST",
+
+                success: function(response) {
+                    let tempHtml = "";
+                    $.each(response, function(idx, item) {
+                        tempHtml += `<li>`
+                        tempHtml += `<div>${item.comments}</div>`
+                        tempHtml += `<div><button class="btnDelete" data-no=${item.no}>
+                            <span class="material-icons">clear</span></button></div>`
+                        tempHtml += `</li>`
+                    });
+                    $(".replyBox ul").html(tempHtml);
+                    $(".comment-num").html("댓글: " + Object.keys(response).length + "개");
+                    $(".btnDelete").on("click", deleteReply);
+                }
+            })
+        }
+
+        $("#btnConfirm").on("click", function() {
+            const sendData = {
+                galleryId: galleryId,
+                comments: $(".reply").val()
+            }
+
+            $.ajax({
+                url: "/insertReply",
+                data: sendData,
+                type: "POST",
+                success: function(response) {
+                    loadReply();
+                    $(".reply").val("");
+                }
+            })
+        })
+
+        function deleteReply() {
+            let no = $(this).attr("data-no");
+            const sendData = {
+                galleryId: galleryId,
+                no: no
+            }
+            
+            $.ajax({
+                url: "/deleteReply",
+                data: sendData,
+                type: "POST",
+                success: function(response) {
+                    loadReply();
+                }
+            })
+        }
+    </script>
+</body>
+</html>
