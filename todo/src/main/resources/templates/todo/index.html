@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO</title>
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/jquery-3.6.4.min.js"></script>
+    <script src="/js/gsap.min.js"></script>
+</head>
+<body>
+    <header class="header">TODO</header>
+
+    <div class="wrap">
+        <div class="inputBox input-group">
+            <input type="text" class="form-control todo" placeholder="오늘의 할 일 ">
+            <button class="btn btn-primary" type="button" id="button-addon2">Button</button>
+        </div>
+        <div class="todoListBox">
+            <ul class="todoList">
+                <li>
+                    <span class="txt">점심먹기</span>
+                    <button>DONE</button>
+                    <button>DEL</button>
+                </li>
+                <li>
+                    <span class="txt">점심먹기</span>
+                    <button>DONE</button>
+                    <button>DEL</button>
+                </li>
+                <li>
+                    <span class="txt">점심먹기</span>
+                    <button>DONE</button>
+                    <button>DEL</button>
+                </li>
+            </ul>
+        </div>
+        <footer class="footer">
+            <p>
+                all copyrights reserved by user
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        loadData();
+
+        function makeList(array) {
+            let tempHtml="";
+              $.each(array,function(idx,item){
+                tempHtml +=`<li class="${item.done==1?"done":""}" data-no=${item.no}>
+                            <span class="txt">${item.todo}</span>
+                            <button class="btnDone">DONE</button>
+                            <button class="btnDelete">DEL</button>
+                            </li>`
+              })
+              $(".todoList").html(tempHtml);
+        }
+
+        function loadData(){
+          const sendData  = {
+              pickedDate:"20230404"
+            }
+          $.ajax({
+            url:"/list",
+            type:"GET",
+            data:sendData,
+            success:function(response){
+              makeList(response);
+            },
+            error:function(err){
+              console.log(err);
+            }
+          })
+        }
+        
+        $(".inputBox .btn").on("click",function(){
+          const sendData  = {
+            todo:$(".inputBox .todo").val(),
+            done:0,
+            pickedDate:"20230404"
+          }
+          $.ajax({
+            url:"/insert",
+            type:"POST",
+            data:sendData,
+            success:function(response){
+                makeList(response);
+                $(".todo").val("");
+            },
+            error:function(err){
+              console.log(err);
+            }
+          })
+        });
+
+        $(".todoList").on("click", "li .btnDelete", function() {
+            const clickedLi = $(this).parent();
+            const sendData = {
+                no: parseInt($(this).parent().data("no")),
+                pickedDate: "20230404"
+            }
+
+            $.ajax({
+                url: "/delete",
+                type:"POST",
+                data: sendData,
+                success: function(response) {
+                    if (response.result > 0) {
+                        gsap.to(clickedLi, {opacity:0, onComplete:function() {
+                            clickedLi.remove();
+                        }})
+                    }
+                },
+                error: function(err) {
+                    console.log(err);
+                }
+            })
+        });
+
+        $(".todoList").on("click", "li .btnDone", function() {
+            const clickedLi = $(this).parent();
+            const sendData = {
+                no: parseInt($(this).parent().data("no")),
+            }
+
+            $.ajax({
+                url: "/done",
+                type:"POST",
+                data: sendData,
+                success: function(response) {
+                    if (response.result > 0) {
+                        clickedLi.addClass("done")
+                    }
+                },
+                error: function(err) {
+                    console.log(err);
+                }
+            })
+        });
+
+      </script>
+</body>
+</html>

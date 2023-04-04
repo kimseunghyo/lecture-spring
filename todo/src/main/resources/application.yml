@@ -1,0 +1,28 @@
+server:
+  port: 9092
+
+spring:
+  output:
+    ansi:
+      enabled: always
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@Localhost:1521:xe
+    username: TIS001
+    password: 1234
+  
+  tymeleaf:
+    cache: false
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+
+logging:
+  level:
+    '[com.example.todo]': DEBUG
+
+mybatis:
+  config-location: classpath:mapper/config/config.xml
+  mapper-locations: classpath:mapper/sqlmapper/**/*.xml

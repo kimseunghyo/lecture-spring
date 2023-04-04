@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.todo.dao.TodoDao">
+    <insert id="insertTodo" parameterType="TodoDto">
+        INSERT INTO TODO VALUES (TODO_SEQ.NEXTVAL, #{todo}, #{done}, #{pickedDate})
+    </insert>
+
+    <select id="getAllTodo" parameterType="String" resultType="TodoDto">
+        SELECT * FROM TODO WHERE PICKEDDATE = #{pickedDate} ORDER BY NO DESC
+    </select>
+
+    <delete id="deleteTodo" parameterType="Integer">
+        DELETE FROM TODO WHERE NO = #{no}
+    </delete>
+
+    <update id="updateTodo" parameterType="Integer">
+        UPDATE TODO SET DONE = 1 WHERE NO = #{no}
+    </update>
+</mapper>
