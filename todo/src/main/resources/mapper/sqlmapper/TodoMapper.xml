@@ -15,7 +15,7 @@
         DELETE FROM TODO WHERE NO = #{no}
     </delete>
 
-    <update id="updateTodo" parameterType="Integer">
-        UPDATE TODO SET DONE = 1 WHERE NO = #{no}
+    <update id="updateTodo" parameterType="TodoDto">
+        UPDATE TODO SET DONE = #{done} WHERE NO = #{no}
     </update>
 </mapper>

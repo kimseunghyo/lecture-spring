@@ -47,15 +47,22 @@ public class TodoController {
     int result = todoService.deleteTodo(todoDto.getNo());
     Map<String, Integer> resultMap = new HashMap<>();
     resultMap.put("result", result);
-    //List<TodoDto> todoList = todoService.getAllTodo(todoDto.getPickedDate());
-    return ResponseEntity.status(HttpStatus.OK).body(resultMap);
+    if (result > 0) {
+      return ResponseEntity.status(HttpStatus.OK).body(resultMap);
+    } else {
+      return ResponseEntity.status(HttpStatus.FORBIDDEN).body(resultMap);
+    }
   }
 
-  @PostMapping("/done")
+  @PostMapping("/update")
   public ResponseEntity<Object> updateTodo(TodoDto todoDto) {
-    int result = todoService.updateTodo(todoDto.getNo());
+    int result = todoService.updateTodo(todoDto);
     Map<String, Integer> resultMap = new HashMap<>();
     resultMap.put("result", result);
-    return ResponseEntity.status(HttpStatus.OK).body(resultMap);
+    if (result > 0) {
+      return ResponseEntity.status(HttpStatus.OK).body(resultMap);
+    } else {
+      return ResponseEntity.status(500).body(resultMap);
+    }
   }
 }

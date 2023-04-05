@@ -9,5 +9,5 @@ public interface TodoDao {
   int insertTodo(TodoDto todoDto);
   List<TodoDto> getAllTodo(String pickedDate);
   int deleteTodo(int no);
-  int updateTodo(int no);
+  int updateTodo(TodoDto todoDto);
 }

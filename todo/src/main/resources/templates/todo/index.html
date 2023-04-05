@@ -5,32 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TODO</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="/css/layout.css">
     <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/lightpick.css">
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/js/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
     <script src="/js/gsap.min.js"></script>
+    <script src="/js/lightpick.js"></script>
 </head>
 <body>
     <header class="header">TODO</header>
 
     <div class="wrap">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" id="datepicker" placeholder="날짜를 선택해 주세요.">
+        </div>
+
         <div class="inputBox input-group">
             <input type="text" class="form-control todo" placeholder="오늘의 할 일 ">
-            <button class="btn btn-primary" type="button" id="button-addon2">Button</button>
+            <button class="btn btn-primary" type="button" id="button-addon2"><span class="material-icons">add</span></button>
         </div>
         <div class="todoListBox">
             <ul class="todoList">
-                <li>
-                    <span class="txt">점심먹기</span>
-                    <button>DONE</button>
-                    <button>DEL</button>
-                </li>
-                <li>
-                    <span class="txt">점심먹기</span>
-                    <button>DONE</button>
-                    <button>DEL</button>
-                </li>
                 <li>
                     <span class="txt">점심먹기</span>
                     <button>DONE</button>
@@ -46,6 +44,15 @@
     </div>
 
     <script>
+        const picker = new Lightpick({ 
+            field: document.querySelector("#datepicker"),
+            format: "YYYY/MM/DD",
+            onSelect: function(date) {
+                picker.setDate(date);
+                loadData();
+            }
+        });
+        picker.setDate(new Date());
         loadData();
 
         function makeList(array) {
@@ -53,8 +60,8 @@
               $.each(array,function(idx,item){
                 tempHtml +=`<li class="${item.done==1?"done":""}" data-no=${item.no}>
                             <span class="txt">${item.todo}</span>
-                            <button class="btnDone">DONE</button>
-                            <button class="btnDelete">DEL</button>
+                            <button class="btnDone"><span class="material-icons">done</span></button>
+                            <button class="btnDelete"><span class="material-icons">delete</span></button>
                             </li>`
               })
               $(".todoList").html(tempHtml);
@@ -62,7 +69,7 @@
 
         function loadData(){
           const sendData  = {
-              pickedDate:"20230404"
+              pickedDate: $("#datepicker").val()
             }
           $.ajax({
             url:"/list",
@@ -81,7 +88,7 @@
           const sendData  = {
             todo:$(".inputBox .todo").val(),
             done:0,
-            pickedDate:"20230404"
+            pickedDate: $("#datepicker").val()
           }
           $.ajax({
             url:"/insert",
@@ -101,7 +108,7 @@
             const clickedLi = $(this).parent();
             const sendData = {
                 no: parseInt($(this).parent().data("no")),
-                pickedDate: "20230404"
+                pickedDate: $("#datepicker").val()
             }
 
             $.ajax({
@@ -123,17 +130,23 @@
 
         $(".todoList").on("click", "li .btnDone", function() {
             const clickedLi = $(this).parent();
+            const state = clickedLi.hasClass("done") ? 0 : 1;
             const sendData = {
                 no: parseInt($(this).parent().data("no")),
+                done: state
             }
 
             $.ajax({
-                url: "/done",
+                url: "/update",
                 type:"POST",
                 data: sendData,
                 success: function(response) {
                     if (response.result > 0) {
-                        clickedLi.addClass("done")
+                        if (clickedLi.hasClass("done")) {
+                            clickedLi.removeClass("done");
+                        } else {
+                            clickedLi.addClass("done");
+                        }
                     }
                 },
                 error: function(err) {

@@ -27,8 +27,8 @@ public class TodoServiceImpl implements TodoService {
     return result;
   }
 
-  public int updateTodo(int no) {
-    int result = todoDao.updateTodo(no);
+  public int updateTodo(TodoDto todoDto) {
+    int result = todoDao.updateTodo(todoDto);
     return result;
   }
 }

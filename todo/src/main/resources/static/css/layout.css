@@ -42,12 +42,25 @@
 }
 .todoListBox .todoList li button {
   border: none;
-  padding: 10px;
   background-color: #111;
   color: #fff;
   border-radius: 3px;
   margin-left: 5px;
   font-size: 12px;
+}
+.todoListBox .todoList li button span {
+  display: flex;
+  justify-content: center;
+  padding: 5px 0;
+}
+
+#button-addon2 {
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .footer {

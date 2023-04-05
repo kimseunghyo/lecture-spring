@@ -10,5 +10,5 @@ public interface TodoService {
 
   public int deleteTodo(int no);
 
-  public int updateTodo(int no);
+  public int updateTodo(TodoDto todoDto);
 }
